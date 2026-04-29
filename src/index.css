@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@400;700&family=Silkscreen:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-digital: "Silkscreen", cursive;
+  
+  --color-neon-pink: #ff007f;
+  --color-neon-blue: #00f2ff;
+  --color-neon-purple: #bc13fe;
+  --color-neon-green: #39ff14;
+
+  @keyframes scanline {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(100vh); }
+  }
+
+  @keyframes flicker {
+    0% { opacity: 0.99; }
+    5% { opacity: 0.85; }
+    10% { opacity: 0.99; }
+    15% { opacity: 0.70; }
+    20% { opacity: 0.99; }
+    100% { opacity: 1; }
+  }
+
+  @keyframes glitch-skew {
+    0% { transform: skew(0deg); }
+    10% { transform: skew(3deg); }
+    20% { transform: skew(-3deg); }
+    30% { transform: skew(1deg); }
+    40% { transform: skew(-1deg); }
+    50% { transform: skew(2deg); }
+    60% { transform: skew(-2deg); }
+    100% { transform: skew(0deg); }
+  }
+
+  @keyframes noise {
+    0%, 100% { transform: translate(0,0) }
+    10% { transform: translate(-5%,-5%) }
+    20% { transform: translate(-10%,5%) }
+    30% { transform: translate(5%,-10%) }
+    40% { transform: translate(-5%,15%) }
+    50% { transform: translate(-10%,5%) }
+    60% { transform: translate(15%,0) }
+    70% { transform: translate(0,10%) }
+    80% { transform: translate(-15%,0) }
+    90% { transform: translate(10%,5%) }
+  }
+
+  @keyframes glitch {
+    0% { transform: translate(0); text-shadow: -3px 0 var(--color-neon-pink), 3px 0 var(--color-neon-blue); }
+    10% { transform: translate(-3px, 2px); }
+    20% { transform: translate(-3px, -2px); text-shadow: 3px 0 var(--color-neon-pink), -3px 0 var(--color-neon-blue); }
+    30% { transform: translate(3px, 2px); }
+    40% { transform: translate(3px, -2px); text-shadow: -3px 0 var(--color-neon-pink), 3px 0 var(--color-neon-blue); }
+    50% { transform: translate(-1px, 2px); }
+    60% { transform: translate(-1px, -2px); }
+    70% { transform: translate(1px, 2px); }
+    80% { transform: translate(1px, -2px); }
+    90% { transform: translate(-3px, 0); }
+    100% { transform: translate(0); }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-[#000000] text-neon-blue overflow-hidden;
+  }
+}
+
+.scanlines::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.03) 50%,
+    rgba(0, 0, 0, 0.3) 50%
+  );
+  background-size: 100% 2px;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.noise-bg::before {
+  content: "";
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  width: 200%;
+  height: 200%;
+  background: transparent url('http://assets.iceable.com/img/noise-transparent.png') repeat;
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/7/76/White_noise.png');
+  animation: noise .2s infinite;
+  opacity: .05;
+  visibility: visible;
+  z-index: 999;
+}
+
+.crt-flicker {
+  animation: flicker 4s infinite;
+}
+
+.glitch-text {
+  animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite both;
+}
+
+.neon-glow-pink {
+  box-shadow: 0 0 10px var(--color-neon-pink), 0 0 20px var(--color-neon-pink);
+}
+
+.neon-glow-blue {
+  box-shadow: 0 0 10px var(--color-neon-blue), 0 0 20px var(--color-neon-blue);
+}
+
+.neon-text-pink {
+  text-shadow: 0 0 5px var(--color-neon-pink), 0 0 10px var(--color-neon-pink);
+}
+
+.neon-text-blue {
+  text-shadow: 0 0 5px var(--color-neon-blue), 0 0 10px var(--color-neon-blue);
+}
+
+.neon-text-green {
+  text-shadow: 0 0 5px var(--color-neon-green), 0 0 10px var(--color-neon-green);
+}
+
+.glass-morphism {
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.snake-background {
+  background-image: 
+    radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
+  background-size: 20px 20px;
+}
